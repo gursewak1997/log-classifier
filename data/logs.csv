@@ -1,0 +1,7 @@
+log,label
+"Error: TimeoutError, please try again.","intermittent"
+"Failed to fetch from cachi2","dependency_error"
+"Build failed due to missing xyz","missing_dependency"
+"disk quota exceeded","infra_issue"
+"task prefetch-dependencies has the status Failed","dependency_error"
+
