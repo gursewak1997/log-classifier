@@ -1,64 +1,80 @@
-## Log Classifier
+# Log Failure Classifier (LLM-Powered)
 
-A simple machine learning script to classify CI/CD pipeline failure logs and suggest actions — ideal for triaging `konflux` failures like timeouts, infra issues, or dependency fetch problems.
+This project analyzes CI/CD failure logs using a Large Language Model (LLM) via the [OpenRouter API](https://openrouter.ai/). It provides root cause analysis and actionable suggestions based on log contents.
 
----
+## Features
 
-### Quick Start
+- Summarizes and classifies log failures using LLMs (e.g., GPT-4 via OpenRouter)
+- Detects intermittent issues
+- Suggests next steps (e.g., rerun with `/retest`)
+- Easily extendable for Slack notifications or CI integrations
+
+## Setup
+
+1. Clone the repository:
 
 ```bash
-# Step 1: Clone and enter the project
-cd log-classifier/
+git clone https://github.com/gursewak1997/log-classifier.git
+cd log-classifier
+````
 
-# Step 2: Set up Python environment
+2. Create and activate a virtual environment:
+
+```bash
 python3 -m venv venv
 source venv/bin/activate
-
-# Step 3: Install dependencies
-pip install -r requirements.txt
-
-# Step 4: Train the model
-python train_log_classifier.py
-
-# Step 5: Predict with a sample log
-python predict_log.py
 ```
 
----
-
-### Sample Output
+3. Install dependencies:
 
 ```bash
-(venv) ➜  ai python train_log_classifier.py
-✅ Model trained and saved to model/log_classifier.pkl
-
-(venv) ➜  ai python predict_log.py
-🧠 Predicted root cause: dependency_error
-💡 Suggested action: Check `cachi2` or retry dependency fetch.
+pip install -r requirements.txt
 ```
 
----
+4. Set up your `.env` file:
 
-### Sample Logs Format
-
-**`data/logs.csv`**
-
-```csv
-log,label
-"Error: TimeoutError, please try again.","intermittent"
-"Failed to fetch from cachi2","dependency_error"
-"Build failed due to missing xyz","missing_dependency"
-"disk quota exceeded","infra_issue"
-"task prefetch-dependencies has the status Failed","dependency_error"
+```bash
+echo "OPENROUTER_API_KEY=your-openrouter-key" > .env
 ```
 
----
+Replace `your-openrouter-key` with your real OpenRouter API key.
 
-### 💡 Future Ideas
+## Folder Structure
 
-* Slack integration on MR failures
-* GitLab bot to auto-comment with `/retest` for intermittent errors
-* Use OpenAI to suggest improved summaries
-* More fine-grained labels (e.g., `cache_issue`, `network_glitch`)
+```
+log-classifier/
+├── llm/
+│   ├── summarize_log.py        # Main LLM-based log analyzer
+│   └── sample_log.txt          # Sample input log file
+├── requirements.txt
+├── .env                        # Your OpenRouter API key (ignored by Git)
+└── README.md
+```
 
----
+## Usage
+
+Add your failure log content to `llm/sample_log.txt`, then run:
+
+```bash
+python llm/summarize_log.py
+```
+
+The script will print out the likely root cause, recommended actions, and whether the issue is intermittent.
+
+## Example Output
+
+```
+LLM Analysis:
+1. Likely cause: Dependency fetch timeout from cachi2.
+2. Suggested action: Retry the run using the `/retest` command.
+3. Intermittent: yes
+```
+
+## Roadmap
+
+* Add Slack notifications
+* Support structured JSON output
+* Multi-task summarization
+* GitHub comment bot integration
+
+```

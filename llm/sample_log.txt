@@ -1,0 +1,22 @@
+step-prefetch-dependencies :-
+INFO: Using mounted CA bundle: /mnt/trusted-ca/ca-bundle.crt
+'/mnt/trusted-ca/ca-bundle.crt' -> '/etc/pki/ca-trust/source/anchors/ca-bundle.crt'
+fatal: could not read Username for 'https://gitlab.com': No such device or address
+2025-06-18 09:56:25,773 INFO Reading RPM lockfile: /tmpkwvfj5_5.cachi2-source-copy/rpms.lock.yaml
+2025-06-18 09:56:27,955 INFO Downloading files for 'aarch64' architecture.
+2025-06-18 09:58:07,751 ERROR Unsuccessful download: https://rhsm-pulp.corp.redhat.com/content/dist/rhel10/10.0/aarch64/baseos/source/SRPMS/Packages/g/glib2-2.80.4-4.el10.src.rpm
+2025-06-18 09:58:07,751 ERROR Unsuccessful download: https://rhsm-pulp.corp.redhat.com/content/dist/rhel10/10.0/aarch64/appstream/source/SRPMS/Packages/n/nss-3.101.0-13.el10.src.rpm
+ERROR:root:Error while closing connector: ClientConnectionError('Connection lost: [SSL: APPLICATION_DATA_AFTER_CLOSE_NOTIFY] application data after close notify (_ssl.c:2774)')
+ERROR:root:Error while closing connector: ClientConnectionError('Connection lost: [SSL: APPLICATION_DATA_AFTER_CLOSE_NOTIFY] application data after close notify (_ssl.c:2774)')
+2025-06-18 09:58:07,775 ERROR FetchError: exception_name: ClientPayloadError, details: Response payload is not completed: <ContentLengthError: 400, message='Not enough data to satisfy content length header.'>
+ERROR:hermeto.interface.cli:FetchError: exception_name: ClientPayloadError, details: Response payload is not completed: <ContentLengthError: 400, message='Not enough data to satisfy content length header.'>
+Error: FetchError: exception_name: ClientPayloadError, details: Response payload is not completed: <ContentLengthError: 400, message='Not enough data to satisfy content length header.'>
+  The error might be intermittent, please try again.
+  If the issue seems to be on the cachi2 side, please contact the maintainers.
+step-use-trusted-artifact :-
+Using token for quay.io/redhat-user-workloads/rhel-bootc-tenant/rhel-bootc-10-0/rhel-bootc-10-0
+Executing (attempt 1):  $ oras blob fetch --registry-config /tmp/use-oci.sh.hLPOiu/auth-v2NwsA.json quay.io/redhat-user-workloads/rhel-bootc-tenant/rhel-bootc-10-0/rhel-bootc-10-0@sha256:c9e8cfdc1cc761ecf63a230c3e17f31a79889ff0e7628dfc4b67893117a8b7c2 --output -
+Restored artifact quay.io/redhat-user-workloads/rhel-bootc-tenant/rhel-bootc-10-0/rhel-bootc-10-0@sha256:c9e8cfdc1cc761ecf63a230c3e17f31a79889ff0e7628dfc4b67893117a8b7c2 to /var/workdir/source
+
+step-create-trusted-artifact :-
+2025/06/18 09:58:08 Skipping step because a previous step failed
